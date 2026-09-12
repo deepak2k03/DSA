@@ -1,3 +1,4 @@
+//----------------------------------LEETCODE-------------------------------------
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
@@ -21,5 +22,43 @@ public:
             ans = max(ans, last - first + 1);
         }
         return (int)ans;
+    }
+};
+
+____________________________________________________________________________________________________________________
+//------------------------------------GEEKSFORGEEKS---------------------------------------
+
+/*  Structure of a Binary Tree
+class Node {
+public:
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = right = nullptr;
+    }
+};*/
+
+class Solution {
+  public:
+    int maxWidth(Node* root) {
+        // code here
+        if(!root) return 0;
+        queue<Node*>q;
+        q.push(root);
+        int mx=0;
+        while(!q.empty()){
+            int sz=q.size();
+            for(int i=0;i<sz;i++){
+                Node* node=q.front();
+                q.pop();
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
+                mx=max(mx,sz);
+            }
+        }
+        return mx;
     }
 };
