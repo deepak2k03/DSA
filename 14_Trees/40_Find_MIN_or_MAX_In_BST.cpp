@@ -24,3 +24,12 @@ class Solution {
         return root->data;
     }
 };
+
+class Solution {
+  public:
+    int maxNodeInBST(Node* root) {
+        // your code goes here
+        while(root->right!=NULL) root=root->right;
+        return root->val;
+    }
+};
