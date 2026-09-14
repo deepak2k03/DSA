@@ -24,3 +24,18 @@ public:
         return true;
     }
 };
+
+//second approach - giving nodes a range
+
+class Solution {
+  public:
+    bool valid(Node*root, int low, int high){
+        if(!root) return true;
+        if(root->data<=low || root->data>=high) return false;
+        return valid(root->left, low, root->data) && valid(root->right, root->data, high);
+    }
+    bool isBST(Node* root) {
+        // code here
+        return valid(root, INT_MIN, INT_MAX);
+    }
+};
