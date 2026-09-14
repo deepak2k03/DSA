@@ -1,52 +1,52 @@
-/* BST Node
-class Node
-{
-   public:
+/* Structure of a Binary Search Tree node
+class Node {
+public:
     int data;
-    Node *left;
-    Node *right;
+    Node* left;
+    Node* right;
 
-    Node(int x){
+    Node(int x) {
         data = x;
-        left = NULL;
-        right = NULL;
+        left = nullptr;
+        right = nullptr;
     }
 }; */
 
 class Solution {
   public:
-    Node* inOrderSuccessor(Node *root, int x) {
-    Node* succ = NULL;
-    while (root != NULL) {
-        if (x>= root->data) {
-            root = root->right;
-        } else {
-            succ = root;
-            root = root->left;
-        }
-    }
-    return succ;
-    }
+  Node* inorderPredecessor(Node* root, int key) {
+      Node* pred = NULL;
 
-    // returns the inorder predecessor of the Node x in BST (rooted at 'root')
-    Node* inOrderPredecessor(Node *root, int x) {
-        Node* pred = NULL;
-        while (root != NULL) {
-            if (x <= root->data) {
-                root = root->left;
-            } else {
-                pred = root;
-                root = root->right;
-            }
-        }
-        return pred; // Return -1 if no predecessor exists
-    }
+      while (root != NULL) {
+          if (root->data < key) {
+              pred = root;
+              root = root->right;
+          } else {
+              root = root->left;
+          }
+      }
 
-
+      return pred;
+  }
+  Node* inOrderSuccessor(Node *root, int key) {
+          // Your code here
+          Node* succ=NULL;
+          while(root!=NULL){
+              if(key>=root->data) root=root->right;
+              else{
+                  succ=root;
+                  root=root->left;
+              }
+          }
+          return succ;
+      }
     vector<Node*> findPreSuc(Node* root, int key) {
         // code here
-        Node* s=inOrderSuccessor(root,key);
-        Node* p=inOrderPredecessor(root,key);
-        return {p,s};
+        vector<Node*>ans;
+        Node* suc=inOrderSuccessor(root,key);
+        Node* pred=inorderPredecessor(root,key);
+        ans.push_back(pred);
+        ans.push_back(suc);
+        return ans;
     }
 };
