@@ -1,14 +1,34 @@
+//brute
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        sort(s.begin(),s.end());
+        int c=0;
+        for(auto i:g){
+            if(lower_bound(s.begin(),s.end(),i)!=s.end()){
+                c++;
+                s.erase(lower_bound(s.begin(),s.end(),i));
+            }
+        }
+        return c;
+    }
+};
+
+//optimal
 class Solution {
   public:
     int maxChildren(vector<int> &greed, vector<int> &cookie) {
-        // Your Code goes here.
-        sort(begin(greed),end(greed));
-        sort(begin(cookie),end(cookie));
-        int l=0,r=0;
-        while(l<cookie.size() && r<greed.size()){
-            if(cookie[l]>=greed[r]) r++;
-            l++;
+        // code here
+        sort(begin(greed), end(greed));
+        sort(begin(cookie), end(cookie));
+        int ptr1=0,ptr2=0;
+        while(ptr1<greed.size()){
+            if(greed[ptr1]<=cookie[ptr2]){
+                ptr1++;
+            }
+            ptr2++;
+            if(ptr2>=cookie.size()) break;
         }
-        return r;
+        return ptr1;
     }
 };
