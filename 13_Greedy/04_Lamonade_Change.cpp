@@ -1,23 +1,28 @@
 class Solution {
-public:
-    bool lemonadeChange(vector<int>& bills) {
-        int d5=0,d10=0;
-        for(auto i:bills){
-            if(i==5) d5++;
+  public:
+    bool canServe(vector<int> &arr) {
+        // code here
+        int five=0;
+        int ten=0;
+        for(auto i:arr){
+            if(i==5) five++;
             else if(i==10){
-                if(d5<=0) return false;
-                else{
-                    d10++;
-                    d5--;
+                if(five){
+                    ten++;
+                    five--;
                 }
+                else return false;
             }
-            else if(d5>0 & d10>0){
-                d5--;
-                d10--;
+            else{
+                if(ten && five){
+                    ten--;
+                    five--;
+                }
+                else if(five>=3) five-=3;
+                else return false;
             }
-            else if(d5>=3) d5-=3;
-            else return false;
+            
         }
-        return true; 
+        return true;
     }
 };
